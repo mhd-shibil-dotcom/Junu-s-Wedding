@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Gift for Zayd & Ayesha — From The Groom's Side 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6E8;
+    --cream-2:#FCECD4;
+    --teal:#0E5E58;
+    --teal-dark:#0A413D;
+    --marigold:#F2A73B;
+    --rose:#E88BA0;
+    --maroon:#7A2331;
+    --gold:#C9992F;
+    --violet:#8E5DB0;
+    --sky:#3EA6C9;
+    --ink:#2B2320;
+    --radius-fun: 3px 24px 3px 24px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Baloo 2', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+    cursor: default;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces', serif;}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- confetti canvas (fixed, on top of everything, non-blocking) ---------- */
+  #confettiCanvas{
+    position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:9999;
+  }
+
+  /* ---------- cursor sparkle ---------- */
+  .sparkle{
+    position:fixed; pointer-events:none; z-index:9998; font-size:16px;
+    animation: sparkleFade 900ms ease-out forwards;
+  }
+  @keyframes sparkleFade{
+    0%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+    100%{ opacity:0; transform:translateY(-30px) scale(1.6) rotate(90deg); }
+  }
+
+  /* ---------- floating controls ---------- */
+  .controls{
+    position:fixed; bottom:22px; right:22px; z-index:500;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .ctrl-btn{
+    width:58px; height:58px; border-radius:50%;
+    background:var(--teal); color:var(--cream);
+    border:3px solid var(--cream-2);
+    font-size:23px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 16px rgba(10,65,61,0.4);
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+  }
+  .ctrl-btn:hover{transform:scale(1.15) rotate(-8deg);}
+  .ctrl-btn:active{transform:scale(.9) rotate(8deg);}
+  .ctrl-btn.active{background:var(--marigold); color:var(--teal-dark);}
+  .ctrl-btn.confetti-btn{background:var(--rose); animation:pulseGlow 2.4s ease-in-out infinite;}
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 6px 16px rgba(232,139,160,.5); }
+    50%{ box-shadow:0 6px 26px rgba(232,139,160,.9); }
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee-wrap{
+    background:var(--marigold); color:var(--teal-dark);
+    overflow:hidden; white-space:nowrap; padding:12px 0;
+    border-top:4px dashed var(--teal-dark); border-bottom:4px dashed var(--teal-dark);
+    position:relative; z-index:5;
+  }
+  .marquee-track{
+    display:inline-block; animation: marquee 18s linear infinite;
+    font-weight:800; font-size:1.15rem; letter-spacing:.03em;
+  }
+  .marquee-track span{margin:0 22px;}
+  @keyframes marquee{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh; position:relative;
+    background:linear-gradient(-45deg, var(--teal), var(--teal-dark), var(--violet), var(--teal));
+    background-size:400% 400%;
+    animation: gradientShift 14s ease infinite;
+    color:var(--cream);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:70px 20px 60px; overflow:hidden;
+  }
+  @keyframes gradientShift{
+    0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;}
+  }
+  .float-emoji{
+    position:absolute; bottom:-60px; font-size:2rem; opacity:.9; pointer-events:none;
+    animation: floatUp linear forwards;
+    z-index:2;
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:1; }
+    90%{ opacity:1; }
+    100%{ transform:translateY(-110vh) rotate(360deg); opacity:0; }
+  }
+  .hero-eyebrow{
+    font-size:1.1rem; letter-spacing:.04em; color:var(--marigold); font-weight:800;
+    margin-bottom:16px; z-index:3; animation: wiggle 3s ease-in-out infinite;
+  }
+  @keyframes wiggle{
+    0%,100%{transform:rotate(-2deg);} 50%{transform:rotate(2deg);}
+  }
+  .hero-title{
+    font-size:clamp(2rem, 5.5vw, 3.4rem); font-weight:600; line-height:1.15; max-width:800px; z-index:3;
+  }
+  .hero-title em{color:var(--marigold); font-style:italic;}
+  .hero-names{
+    margin-top:20px; font-weight:700; line-height:1; z-index:3;
+    font-size:clamp(2.6rem, 9vw, 5.4rem);
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:center;
+    background:linear-gradient(90deg, var(--marigold), var(--rose), var(--sky), var(--marigold));
+    background-size:300% auto;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    animation: rainbowShift 6s linear infinite;
+  }
+  @keyframes rainbowShift{ 0%{background-position:0% center;} 100%{background-position:300% center;} }
+  .hero-names .amp{ font-style:italic; font-weight:500; font-size:0.7em; }
+  .hero-sub{
+    margin-top:22px; font-size:1.2rem; max-width:560px; color:var(--cream-2); line-height:1.6; z-index:3;
+  }
+  .hero-from{
+    margin-top:28px; font-family:'Fraunces', serif; font-style:italic; font-size:1.3rem; color:var(--cream);
+    border-top:2px dashed rgba(255,246,232,.4); border-bottom:2px dashed rgba(255,246,232,.4);
+    padding:12px 28px; z-index:3;
+  }
+  .confetti-cta{
+    margin-top:30px; z-index:3;
+    background:var(--marigold); color:var(--teal-dark); border:none;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:1.05rem;
+    padding:16px 34px; border-radius:50px; cursor:pointer;
+    box-shadow:0 8px 0 var(--gold), 0 14px 24px rgba(0,0,0,.25);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .confetti-cta:hover{ transform:translateY(-3px); }
+  .confetti-cta:active{ transform:translateY(5px); box-shadow:0 3px 0 var(--gold), 0 6px 14px rgba(0,0,0,.25); }
+  .scroll-cue{
+    position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3;
+    font-size:.95rem; color:var(--cream-2); opacity:.85;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{transform:translate(-50%,0);} 50%{transform:translate(-50%,10px);} }
+
+  /* ---------- section shell ---------- */
+  section{padding:100px 20px; position:relative; overflow:hidden;}
+  .section-inner{max-width:1040px; margin:0 auto; position:relative; z-index:2;}
+  .section-head{text-align:center; margin-bottom:56px;}
+  .section-tag{
+    display:inline-block; font-weight:800; color:var(--maroon);
+    background:rgba(232,139,160,.25); padding:6px 18px; border-radius:20px;
+    font-size:.9rem; margin-bottom:16px; transform:rotate(-2deg);
+  }
+  .section-title{ font-size:clamp(2.1rem, 5vw, 3.2rem); color:var(--teal-dark); font-weight:600; }
+  .section-title em{color:var(--marigold); font-style:italic;}
+
+  /* scroll reveal */
+  .reveal{ opacity:0; transform:translateY(40px) scale(.96); transition:opacity .7s ease, transform .7s cubic-bezier(.34,1.56,.64,1); }
+  .reveal.in{ opacity:1; transform:translateY(0) scale(1); }
+
+  .photo-frame{
+    width:100%; aspect-ratio:4/5; background:var(--cream-2);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; border-radius:2px; position:relative;
+  }
+  .photo-frame img{width:100%; height:100%; object-fit:cover;}
+  .photo-placeholder{
+    display:none; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; width:100%; height:100%;
+    background:repeating-linear-gradient(135deg, #efe1c8, #efe1c8 10px, #e7d5b4 10px, #e7d5b4 20px);
+    color:#8a7454; font-weight:700; text-align:center; padding:14px; font-size:.9rem;
+    border:2px dashed #cbab6f;
+  }
+
+  /* ---------- friends + groom gallery ---------- */
+  .gallery{background:var(--cream-2);}
+  .gallery-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; }
+  .gallery-grid .photo-frame{aspect-ratio:9 / 16; border-radius:var(--radius-fun);}
+  .gallery-item{ transition:transform .25s cubic-bezier(.34,1.56,.64,1); }
+  .gallery-item:nth-child(4n+1){transform:rotate(-4deg);}
+  .gallery-item:nth-child(4n+2){transform:rotate(3deg);}
+  .gallery-item:nth-child(4n+3){transform:rotate(-2deg);}
+  .gallery-item:nth-child(4n+4){transform:rotate(4deg);}
+  .gallery-item:hover{ transform:scale(1.09) rotate(0deg) !important; z-index:3; }
+  .gallery-item .photo-caption{
+    text-align:center; margin-top:8px; font-size:.85rem; color:var(--teal-dark); font-weight:700;
+  }
+
+  /* ---------- bride & groom tiles ---------- */
+  .couple-tiles{background:var(--cream);}
+  .tiles-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+  .tile{
+    background:#fff; border-radius:var(--radius-fun); overflow:hidden;
+    box-shadow:0 14px 34px rgba(42,35,31,.16);
+    display:flex; flex-direction:column;
+    transition:transform .12s ease; transform-style:preserve-3d; will-change:transform;
+    border:3px solid transparent;
+  }
+  .tile.groom{ border-color:rgba(14,94,88,.15); }
+  .tile.bride{ border-color:rgba(232,139,160,.3); }
+  .tile-photo{aspect-ratio:4/5;}
+  .tile-photo .photo-frame{aspect-ratio:auto; height:100%; border-radius:0;}
+  .tile-body{ padding:30px 28px 34px; text-align:center; }
+  .tile-role{
+    display:inline-block; font-size:.85rem; font-weight:800; letter-spacing:.03em;
+    padding:5px 16px; border-radius:16px; margin-bottom:12px;
+  }
+  .tile.groom .tile-role{background:rgba(14,94,88,.15); color:var(--teal);}
+  .tile.bride .tile-role{background:rgba(232,139,160,.25); color:var(--maroon);}
+  .tile-name{font-size:1.7rem; font-weight:700; color:var(--teal-dark); margin-bottom:6px;}
+  .tile-nick{font-family:'Fraunces', serif; font-style:italic; color:var(--gold); margin-bottom:16px;}
+  .tile-facts{ text-align:left; margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+  .fact{ display:flex; gap:10px; font-size:.95rem; color:#5c4c40; }
+  .fact .fact-emoji{flex-shrink:0;}
+  .tile-quote{
+    margin-top:18px; font-family:'Fraunces', serif; font-style:italic; color:var(--teal-dark);
+    font-size:1rem; border-top:1px dashed #e2d3ba; padding-top:16px;
+  }
+  .vs-badge{
+    display:flex; align-items:center; justify-content:center; grid-column:1/-1; margin:-14px 0;
+  }
+  .vs-badge span{
+    background:var(--maroon); color:var(--cream); font-weight:800; font-size:1.1rem;
+    width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 16px rgba(122,35,49,.4); transform:rotate(-8deg);
+    border:3px solid var(--cream);
+  }
+
+  /* ---------- timeline / events ---------- */
+  .events{ background:var(--teal-dark); color:var(--cream); }
+  .events .section-title{color:var(--cream);}
+  .events .section-tag{background:rgba(242,167,59,.2); color:var(--marigold);}
+  .event-path{ display:flex; flex-direction:column; gap:0; }
+  .event-card{ display:grid; grid-template-columns:90px 1fr; gap:24px; padding:30px 0; position:relative; }
+  .event-card:not(:last-child)::after{
+    content:""; position:absolute; left:44px; top:78px; bottom:-10px; width:2px;
+    background:repeating-linear-gradient(to bottom, var(--marigold) 0 8px, transparent 8px 16px);
+  }
+  .event-icon{
+    width:88px; height:88px; border-radius:50%; background:var(--marigold); color:var(--teal-dark);
+    display:flex; align-items:center; justify-content:center; font-size:2.1rem; font-weight:700; flex-shrink:0;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .event-card:hover .event-icon{ transform:scale(1.15) rotate(-12deg); }
+  .event-info h3{font-size:1.5rem; margin-bottom:6px; color:var(--marigold);}
+  .event-info .event-meta{font-size:1rem; color:var(--cream-2); line-height:1.7;}
+  .event-info .event-meta b{color:var(--cream);}
+
+  /* ---------- countdown ---------- */
+  .countdown-wrap{
+    text-align:center;
+    background:linear-gradient(-45deg, var(--rose), var(--marigold), var(--sky), var(--rose));
+    background-size:300% 300%; animation:gradientShift 10s ease infinite;
+  }
+  .countdown{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+  .count-box{
+    background:var(--cream); color:var(--teal-dark); width:120px; padding:22px 10px;
+    border-radius:var(--radius-fun); box-shadow:0 10px 24px rgba(122,35,49,.3);
+    transition:transform .15s ease;
+  }
+  .count-box.bump{ animation:bump .35s ease; }
+  @keyframes bump{ 0%{transform:scale(1);} 40%{transform:scale(1.15) rotate(-3deg);} 100%{transform:scale(1);} }
+  .count-box .num{font-family:'Fraunces', serif; font-size:2.4rem; font-weight:700;}
+  .count-box .lbl{font-size:.85rem; font-weight:700; letter-spacing:.03em; margin-top:4px;}
+
+  /* ---------- message from friends ---------- */
+  .message{ background:var(--cream-2); text-align:center; }
+  .message-box{
+    max-width:680px; margin:0 auto; background:#fff; padding:44px 36px;
+    border-radius:var(--radius-fun); box-shadow:0 14px 30px rgba(42,35,31,.12);
+    position:relative; transform:rotate(-1deg);
+  }
+  .message-box::before{
+    content:"💌"; position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+    font-size:2.4rem; background:var(--cream-2); width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .message-box p{ font-size:1.1rem; line-height:1.85; color:#4a3c34; margin-bottom:16px; }
+  .message-sign{ font-family:'Fraunces', serif; font-style:italic; color:var(--teal-dark); font-size:1.2rem; margin-top:10px; }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--teal-dark); color:var(--cream-2); text-align:center; padding:56px 20px 44px;
+    position:relative; overflow:hidden;
+  }
+  footer .fname{
+    font-family:'Fraunces', serif; font-style:italic; color:var(--marigold); font-size:1.4rem;
+  }
+  footer small{display:block; margin-top:10px; opacity:.65;}
+
+  @media(max-width:820px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .tiles-grid{grid-template-columns:1fr;}
+    .vs-badge{margin:0;}
+  }
+  @media(max-width:520px){ section{padding:70px 16px;} }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .scroll-cue, .hero, .hero-names, .countdown-wrap, .hero-eyebrow, .float-emoji{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confettiCanvas"></canvas>
+
+<!-- ============ FLOATING CONTROLS ============ -->
+<div class="controls">
+  <button class="ctrl-btn" id="musicBtn" title="Play background music">🎵</button>
+  <button class="ctrl-btn" id="scrollBtn" title="Toggle auto-scroll">▶️</button>
+  <button class="ctrl-btn confetti-btn" id="confettiBtn" title="Confetti!">🎊</button>
+</div>
+
+<!-- Replace src below with your own song file, e.g. music/our-song.mp3 -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music/muttayi_vandi.m4a" type="audio/mpeg">
+</audio>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero">
+  <div class="hero-eyebrow">💛 A LITTLE SOMETHING FROM JUNU'S SIDE 💛</div>
+  <h1 class="hero-title">We couldn't just send a card, so here's a whole <em>website</em> instead</h1>
+  <div class="hero-names">Junu <span class="amp">&amp;</span> Rasni</div>
+  <p class="hero-sub">From the boys who've known Junu forever — made with love (and way too many old photos) to celebrate our brother's wedding, and to welcome Rasni to the group chat.</p>
+  <button class="confetti-cta" id="heroConfettiBtn">🎉 Tap for confetti!</button>
+  <div class="hero-from">With love, from all of us 🤍</div>
+  <div class="scroll-cue">scroll down ↓</div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>✨ FROM JUNU'S SIDE ✨</span><span>🎉 GETTING MARRIED 🎉</span><span>💍 SAVE THE DATE 💍</span><span>🌿 MEHNDI · NIKAH · RECEPTION 🌿</span>
+    <span>✨ FROM JUNU'S SIDE ✨</span><span>🎉 GETTING MARRIED 🎉</span><span>💍 SAVE THE DATE 💍</span><span>🌿 MEHNDI · NIKAH · RECEPTION 🌿</span>
+  </div>
+</div>
+
+<!-- ============ FRIENDS + GROOM GALLERY ============ -->
+<section class="gallery">
+  <div class="section-inner reveal">
+    <div class="section-head">
+      <div class="section-tag">Us Through The Years</div>
+      <h2 class="section-title">Junu's Photo Gallery</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_2.jpg" alt="Photo 1"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_3_2026-09-05_13-40-21.jpg" alt="Photo 3"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
+        <div class="photo-caption">    </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_4_2026-09-05_13-40-21.jpg" alt="Photo 4"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
+        <!-- <div class="photo-frame"><img src="photos/gallery-5.jpg" alt="Photo 5"><div class="photo-placeholder">📷 gallery-5.jpg</div></div> -->
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_5_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_6_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">    </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_7_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">    </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_8_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">    </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_9_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_10_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_11_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_12_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_13_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_14_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_15_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_16_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_17_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_18_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_19_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_20_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_21_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_22_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_1_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_1.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_5_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_2_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_3_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_4_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-frame"><img src="photos/photo_6_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-caption">   </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRIDE & GROOM TILES ============ -->
+<section class="couple-tiles">
+  <div class="section-inner reveal">
+    <div class="section-head">
+      <div class="section-tag">Meet The Couple</div>
+      <h2 class="section-title">Our guy, &amp; the <em>girl who tamed him</em></h2>
+    </div>
+    <div class="tiles-grid">
+
+      <div class="tile groom" id="groomTile">
+        <div class="tile-photo">
+            <div class="photo-frame"><img src="photos/groom.jpg"alt="Junu"><div class="photo-placeholder">📷 Replace with<br>groom.jpg</div></div>
+        </div>
+        <div class="tile-body">
+          <span class="tile-role">The Groom</span>
+          <div class="tile-name">Zayd [Last Name]</div>
+          <div class="tile-nick">"[nickname / what friends call him]"</div>
+          <div class="tile-facts">
+            <div class="fact"><span class="fact-emoji">🎂</span> [Age] · from [hometown]</div>
+            <div class="fact"><span class="fact-emoji">💼</span> [What he does]</div>
+            <div class="fact"><span class="fact-emoji">🎸</span> Known for [a fun trait / hobby]</div>
+            <div class="fact"><span class="fact-emoji">😂</span> Will absolutely [funny inside joke]</div>
+          </div>
+          <p class="tile-quote">"[A one-line memory or quote from the friend group about him]"</p>
+        </div>
+      </div>
+
+      <div class="vs-badge"><span>&amp;</span></div>
+
+      <div class="tile bride" id="brideTile">
+        <div class="tile-photo">
+          <div class="photo-frame"><img src="photos/bride.jpg" alt="Ayesha"><div class="photo-placeholder">📷 Replace with<br>bride.jpg</div></div>
+        </div>
+        <div class="tile-body">
+          <span class="tile-role">The Bride</span>
+          <div class="tile-name">Ayesha [Last Name]</div>
+          <div class="tile-nick">"[nickname / what friends call her]"</div>
+          <div class="tile-facts">
+            <div class="fact"><span class="fact-emoji">🎂</span> [Age] · from [hometown]</div>
+            <div class="fact"><span class="fact-emoji">💼</span> [What she does]</div>
+            <div class="fact"><span class="fact-emoji">📚</span> Known for [a fun trait / hobby]</div>
+            <div class="fact"><span class="fact-emoji">😂</span> Will absolutely [funny inside joke]</div>
+          </div>
+          <p class="tile-quote">"[A one-line memory or quote from the friend group about her]"</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS TIMELINE ============ -->
+<section class="events">
+  <div class="section-inner reveal">
+    <div class="section-head">
+      <div class="section-tag">Save the Dates</div>
+      <h2 class="section-title">The <em>celebrations</em></h2>
+    </div>
+    <div class="event-path">
+      <div class="event-card">
+        <div class="event-icon">🌿</div>
+        <div class="event-info">
+          <h3>Mehndi Night</h3>
+          <p class="event-meta"><b>Thu, 10th Dec 2026</b> · 6:00 PM onwards<br>[Venue placeholder] — The Garden Courtyard, Kochi</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-icon">💍</div>
+        <div class="event-info">
+          <h3>Nikah Ceremony</h3>
+          <p class="event-meta"><b>Sat, 12th Dec 2026</b> · 11:00 AM<br>[Venue placeholder] — Al Noor Hall, Kochi</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-icon">🎉</div>
+        <div class="event-info">
+          <h3>Reception</h3>
+          <p class="event-meta"><b>Sat, 12th Dec 2026</b> · 7:30 PM onwards<br>[Venue placeholder] — Seaside Convention Center, Kochi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COUNTDOWN ============ -->
+<section class="countdown-wrap">
+  <div class="section-inner reveal">
+    <div class="section-tag" style="background:rgba(255,255,255,.4); color:var(--maroon);">Almost time!</div>
+    <h2 class="section-title" style="color:var(--teal-dark);">Counting down to <em>"I do"</em></h2>
+    <div class="countdown" id="countdown">
+      <div class="count-box"><div class="num" id="cd-days">00</div><div class="lbl">days</div></div>
+      <div class="count-box"><div class="num" id="cd-hours">00</div><div class="lbl">hours</div></div>
+      <div class="count-box"><div class="num" id="cd-mins">00</div><div class="lbl">minutes</div></div>
+      <div class="count-box"><div class="num" id="cd-secs">00</div><div class="lbl">seconds</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MESSAGE FROM FRIENDS ============ -->
+<section class="message">
+  <div class="section-inner reveal">
+    <div class="section-head">
+      <div class="section-tag">From The Groom's Side</div>
+      <h2 class="section-title">A little <em>note</em></h2>
+    </div>
+    <div class="message-box">
+      <p>[Placeholder] Zayd, we've watched you complain about being single, then watched you fall head over heels, and now — somehow — we're watching you get married. Time flies when you're busy roasting each other in the group chat.</p>
+      <p>[Placeholder] Ayesha, thank you for putting up with all of Zayd's terrible jokes (we've heard them too, we understand your sacrifice). Welcome to the group — fair warning, there's no leaving it now.</p>
+      <p>[Placeholder] We built this little page because our guy deserves more than just a card — he deserves a whole website full of his favourite people cheering him on. Congratulations, you two. We love you endlessly.</p>
+      <div class="message-sign">— the boys, who made this instead of getting you a normal gift</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="fname">Zayd &amp; Ayesha</div>
+  <p>Congratulations from Zayd's side 💛</p>
+  <small>Made with love (and confetti) by the boys ·</small>
+</footer>
+
+<script>
+  /* ================= COUNTDOWN ================= */
+  const WEDDING_DATE = new Date("2026-09-12T11:00:00");
+  const prevVals = {};
+  function updateCountdown(){
+    const now = new Date();
+    let diff = WEDDING_DATE - now;
+    if(diff < 0) diff = 0;
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    const vals = { days, hours, mins, secs };
+    for(const key in vals){
+      const el = document.getElementById('cd-' + key);
+      const str = String(vals[key]).padStart(2,'0');
+      if(prevVals[key] !== str){
+        el.textContent = str;
+        el.parentElement.classList.remove('bump');
+        void el.parentElement.offsetWidth;
+        el.parentElement.classList.add('bump');
+        prevVals[key] = str;
+      }
+    }
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ================= BACKGROUND MUSIC ================= */
+  const musicBtn = document.getElementById('musicBtn');
+  const bgMusic = document.getElementById('bgMusic');
+  let musicPlaying = false;
+
+  function setMusicOn(){
+    musicPlaying = true;
+    musicBtn.textContent = '🔇';
+    musicBtn.classList.add('active');
+  }
+  function setMusicOff(){
+    musicPlaying = false;
+    musicBtn.textContent = '🎵';
+    musicBtn.classList.remove('active');
+  }
+
+  musicBtn.addEventListener('click', () => {
+    if(!musicPlaying){
+      bgMusic.play().then(setMusicOn).catch(() => {
+        alert("Add your song file to 'music/our-song.mp3' first, then this button will play it!");
+      });
+    } else {
+      bgMusic.pause();
+      setMusicOff();
+    }
+  });
+
+  /* ---- try to autoplay music the moment the page loads ---- */
+  function tryAutoplayMusic(){
+    if(musicPlaying) return;
+    bgMusic.play().then(setMusicOn).catch(() => {
+      /* Most browsers block audio autoplay until the visitor interacts with
+         the page. As a fallback, start the music on the very first tap/click
+         or key press anywhere on the page. */
+      const startOnInteraction = () => {
+        if(musicPlaying) return;
+        bgMusic.play().then(setMusicOn).catch(() => {});
+      };
+      document.addEventListener('click', startOnInteraction, { once:true });
+      document.addEventListener('touchstart', startOnInteraction, { once:true, passive:true });
+      document.addEventListener('keydown', startOnInteraction, { once:true });
+      document.addEventListener('scroll', startOnInteraction, { once:true, passive:true });
+    });
+  }
+  window.addEventListener('DOMContentLoaded', tryAutoplayMusic);
+  window.addEventListener('load', tryAutoplayMusic);
+
+  /* ================= AUTO-SCROLL ================= */
+  const scrollBtn = document.getElementById('scrollBtn');
+  let autoScrolling = false;
+  let scrollTimer = null;
+  const AUTO_SCROLL_SPEED = 2.25; // lower = slower / longer scroll across the page
+  function startAutoScroll(){
+    scrollTimer = setInterval(() => {
+      const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 4;
+      if(atBottom){ stopAutoScroll(); return; }
+      window.scrollBy({ top: AUTO_SCROLL_SPEED, behavior: 'auto' });
+    }, 16);
+  }
+  function stopAutoScroll(){
+    clearInterval(scrollTimer);
+    autoScrolling = false;
+    scrollBtn.textContent = '▶️';
+    scrollBtn.classList.remove('active');
+  }
+  scrollBtn.addEventListener('click', () => {
+    if(!autoScrolling){
+      autoScrolling = true;
+      scrollBtn.textContent = '⏸️';
+      scrollBtn.classList.add('active');
+      startAutoScroll();
+    } else { stopAutoScroll(); }
+  });
+  window.addEventListener('wheel', () => { if(autoScrolling) stopAutoScroll(); });
+  window.addEventListener('touchmove', () => { if(autoScrolling) stopAutoScroll(); });
+
+  /* ---- auto-start the auto-scroll a moment after the page loads ---- */
+  const AUTO_SCROLL_START_DELAY = 1200; // ms to wait after load before scrolling begins
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if(autoScrolling) return; // don't double-start if user already toggled it
+      autoScrolling = true;
+      scrollBtn.textContent = '⏸️';
+      scrollBtn.classList.add('active');
+      startAutoScroll();
+    }, AUTO_SCROLL_START_DELAY);
+  });
+
+  /* ================= SCROLL REVEAL ================= */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ================= FLOATING EMOJIS IN HERO ================= */
+  const hero = document.getElementById('hero');
+  const floatEmojis = ['🎉','💍','🌸','✨','🕊️','💛','🎊','🌿'];
+  function spawnFloatEmoji(){
+    const el = document.createElement('div');
+    el.className = 'float-emoji';
+    el.textContent = floatEmojis[Math.floor(Math.random()*floatEmojis.length)];
+    el.style.left = Math.random()*100 + '%';
+    const duration = 6 + Math.random()*5;
+    el.style.animationDuration = duration + 's';
+    el.style.fontSize = (1.4 + Math.random()*1.6) + 'rem';
+    hero.appendChild(el);
+    setTimeout(() => el.remove(), duration*1000);
+  }
+  setInterval(spawnFloatEmoji, 700);
+  for(let i=0;i<6;i++) setTimeout(spawnFloatEmoji, i*300);
+
+  /* ================= CURSOR SPARKLE TRAIL ================= */
+  const sparkleChars = ['✨','⭐','💫','🌟'];
+  let lastSparkle = 0;
+  window.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if(now - lastSparkle < 60) return;
+    lastSparkle = now;
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = sparkleChars[Math.floor(Math.random()*sparkleChars.length)];
+    s.style.left = e.clientX + 'px';
+    s.style.top = e.clientY + 'px';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 900);
+  });
+  // light touch support
+  window.addEventListener('touchmove', (e) => {
+    if(!e.touches || !e.touches[0]) return;
+    const t = e.touches[0];
+    const now = Date.now();
+    if(now - lastSparkle < 80) return;
+    lastSparkle = now;
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = sparkleChars[Math.floor(Math.random()*sparkleChars.length)];
+    s.style.left = t.clientX + 'px';
+    s.style.top = t.clientY + 'px';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 900);
+  }, { passive:true });
+
+  /* ================= TILT EFFECT ON COUPLE TILES ================= */
+  [document.getElementById('groomTile'), document.getElementById('brideTile')].forEach(tile => {
+    tile.addEventListener('mousemove', (e) => {
+      const rect = tile.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      tile.style.transform = `perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg) scale(1.02)`;
+    });
+    tile.addEventListener('mouseleave', () => {
+      tile.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)';
+    });
+  });
+
+  /* ================= CONFETTI CANVAS ENGINE ================= */
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const confettiColors = ['#F2A73B','#E88BA0','#0E5E58','#8E5DB0','#3EA6C9','#C9992F','#7A2331'];
+  let confettiPieces = [];
+
+  function burstConfetti(count = 140){
+    for(let i=0;i<count;i++){
+      confettiPieces.push({
+        x: Math.random()*canvas.width,
+        y: -20 - Math.random()*canvas.height*0.3,
+        w: 6 + Math.random()*6,
+        h: 8 + Math.random()*10,
+        color: confettiColors[Math.floor(Math.random()*confettiColors.length)],
+        rot: Math.random()*360,
+        rotSpeed: (Math.random()-0.5) * 10,
+        vy: 2 + Math.random()*3,
+        vx: (Math.random()-0.5) * 3,
+        life: 0,
+        maxLife: 260 + Math.random()*120
+      });
+    }
+  }
+
+  function animateConfetti(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confettiPieces.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.rotSpeed;
+      p.life++;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI/180);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, 1 - p.life/p.maxLife);
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    confettiPieces = confettiPieces.filter(p => p.life < p.maxLife && p.y < canvas.height + 40);
+    requestAnimationFrame(animateConfetti);
+  }
+  animateConfetti();
+
+  const confettiBtn = document.getElementById('confettiBtn');
+  const heroConfettiBtn = document.getElementById('heroConfettiBtn');
+  confettiBtn.addEventListener('click', () => burstConfetti(160));
+  heroConfettiBtn.addEventListener('click', () => burstConfetti(200));
+
+  // auto burst once on load, and again when countdown section is scrolled into view
+  window.addEventListener('load', () => setTimeout(() => burstConfetti(180), 500));
+  const countdownSection = document.querySelector('.countdown-wrap');
+  let countdownBurstDone = false;
+  const cIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting && !countdownBurstDone){
+        burstConfetti(150);
+        countdownBurstDone = true;
+      }
+    });
+  }, { threshold: 0.4 });
+  cIo.observe(countdownSection);
+</script>
+
+</body>
+</html>
