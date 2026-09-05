@@ -202,6 +202,29 @@
     text-align:center; margin-top:8px; font-size:.85rem; color:var(--teal-dark); font-weight:700;
   }
 
+  /* ---------- video-as-gif gallery (Junu playing) ---------- */
+  .video-gallery{background:var(--cream);}
+  .video-gallery-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; }
+  .video-gallery-grid .photo-frame{aspect-ratio:9 / 16; border-radius:var(--radius-fun);}
+  .video-gallery-grid .photo-frame video{
+    width:100%; height:100%; object-fit:cover; display:block; background:#000;
+  }
+  .video-item{ transition:transform .25s cubic-bezier(.34,1.56,.64,1); position:relative; }
+  .video-item:nth-child(4n+1){transform:rotate(3deg);}
+  .video-item:nth-child(4n+2){transform:rotate(-3deg);}
+  .video-item:nth-child(4n+3){transform:rotate(4deg);}
+  .video-item:nth-child(4n+4){transform:rotate(-2deg);}
+  .video-item:hover{ transform:scale(1.09) rotate(0deg) !important; z-index:3; }
+  .video-item .photo-frame{ border:3px solid var(--marigold); }
+  .video-item .gif-badge{
+    position:absolute; top:10px; right:10px; background:var(--marigold); color:var(--teal-dark);
+    font-size:.7rem; font-weight:800; letter-spacing:.03em; padding:3px 10px; border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.25); z-index:2; pointer-events:none;
+  }
+  .video-item .photo-caption{
+    text-align:center; margin-top:8px; font-size:.85rem; color:var(--teal-dark); font-weight:700;
+  }
+
   /* ---------- bride & groom tiles ---------- */
   .couple-tiles{background:var(--cream);}
   .tiles-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
@@ -294,6 +317,58 @@
   .message-box p{ font-size:1.1rem; line-height:1.85; color:#4a3c34; margin-bottom:16px; }
   .message-sign{ font-family:'Fraunces', serif; font-style:italic; color:var(--teal-dark); font-size:1.2rem; margin-top:10px; }
 
+  /* ---------- childhood photo strip in footer ---------- */
+  .childhood-strip{
+    max-width:1040px;
+    margin:0 auto 34px;
+    padding:14px;
+    background:rgba(255,246,232,.08);
+    border:2px dashed rgba(242,167,59,.65);
+    border-radius:18px;
+    box-shadow:0 10px 24px rgba(0,0,0,.12);
+  }
+  .childhood-strip-title{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--marigold);
+    font-size:1.15rem;
+    margin-bottom:12px;
+  }
+  .childhood-photos{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:4px 2px 10px;
+    scrollbar-width:thin;
+  }
+  .childhood-photo{
+    flex:0 0 190px;
+    height:125px;
+    border-radius:12px;
+    overflow:hidden;
+    border:3px solid var(--cream-2);
+    background:var(--cream-2);
+    box-shadow:0 7px 14px rgba(0,0,0,.22);
+    transform:rotate(-1.5deg);
+    transition:transform .2s ease;
+  }
+  .childhood-photo:nth-child(even){transform:rotate(1.5deg);}
+  .childhood-photos.single{justify-content:center; overflow:hidden;}
+  .childhood-photos.single .childhood-photo{
+    flex:0 1 520px;
+    width:min(520px, 100%);
+    height:260px;
+  }
+  .childhood-photo:hover{
+    transform:translateY(-5px) rotate(0deg) scale(1.03);
+    z-index:2;
+  }
+  .childhood-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
   /* ---------- footer ---------- */
   footer{
     background:var(--teal-dark); color:var(--cream-2); text-align:center; padding:56px 20px 44px;
@@ -306,6 +381,7 @@
 
   @media(max-width:820px){
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .video-gallery-grid{grid-template-columns:repeat(2,1fr);}
     .tiles-grid{grid-template-columns:1fr;}
     .vs-badge{margin:0;}
   }
@@ -477,6 +553,50 @@
   </div>
 </section>
 
+<!-- ============ VIDEO-AS-GIF GALLERY: JUNU PLAYING ============ -->
+<section class="video-gallery">
+  <div class="section-inner reveal">
+    <div class="section-head">
+      <div class="section-tag">Caught In The Act</div>
+      <h2 class="section-title">Junu, <em>mid-game</em></h2>
+    </div>
+    <div class="video-gallery-grid">
+      <div class="video-item">
+        <div class="photo-frame">
+          <video src="videos/video_2026-09-05_16-36-16 (2).mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="photo-placeholder">🎬 videos/junu_playing_1.mp4</div>
+        </div>
+        <span class="gif-badge">GIF</span>
+        <div class="photo-caption"> </div>
+      </div>
+      <div class="video-item">
+        <div class="photo-frame">
+          <video src="videos/video_2026-09-05_16-36-16.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="photo-placeholder">🎬 videos/junu_playing_2.mp4</div>
+        </div>
+        <span class="gif-badge">GIF</span>
+        <div class="photo-caption"> </div>
+      </div>
+      <!-- <div class="video-item">
+        <div class="photo-frame">
+          <video src="videos/junu_playing_3.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="photo-placeholder">🎬 videos/junu_playing_3.mp4</div>
+        </div>
+        <span class="gif-badge">GIF</span>
+        <div class="photo-caption"> </div>
+      </div>
+      <div class="video-item">
+        <div class="photo-frame">
+          <video src="videos/junu_playing_4.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="photo-placeholder">🎬 videos/junu_playing_4.mp4</div>
+        </div>
+        <span class="gif-badge">GIF</span>
+        <div class="photo-caption"> </div>
+      </div> -->
+    </div>
+  </div>
+</section>
+
 <!-- ============ BRIDE & GROOM TILES ============ -->
 <section class="couple-tiles">
   <div class="section-inner reveal">
@@ -593,6 +713,15 @@
 
 <!-- ============ FOOTER ============ -->
 <footer>
+  <div class="childhood-strip">
+    <div class="childhood-strip-title">📸 A Little Throwback To The Good Old Days</div>
+    <div class="childhood-photos single">
+      <div class="childhood-photo">
+        <img src="photos/thoppi_photo.jpg" alt="Childhood memory">
+      </div>
+    </div>
+  </div>
+
   <div class="fname">Zayd &amp; Ayesha</div>
   <p>Congratulations from Zayd's side 💛</p>
   <small>Made with love (and confetti) by the boys ·</small>
@@ -779,6 +908,20 @@
     });
     tile.addEventListener('mouseleave', () => {
       tile.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)';
+    });
+  });
+
+  /* ================= VIDEO-AS-GIF FALLBACK HANDLING ================= */
+  document.querySelectorAll('.video-item video').forEach(video => {
+    // If the video source fails to load (placeholder path), show the placeholder text instead.
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+      const placeholder = video.parentElement.querySelector('.photo-placeholder');
+      if(placeholder) placeholder.style.display = 'flex';
+    });
+    // Some mobile browsers pause background video; nudge it to keep playing like a gif.
+    video.addEventListener('pause', () => {
+      video.play().catch(() => {});
     });
   });
 
