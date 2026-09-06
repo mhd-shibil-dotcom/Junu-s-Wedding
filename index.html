@@ -302,20 +302,53 @@
   .count-box .num{font-family:'Fraunces', serif; font-size:2.4rem; font-weight:700;}
   .count-box .lbl{font-size:.85rem; font-weight:700; letter-spacing:.03em; margin-top:4px;}
 
-  /* ---------- message from friends ---------- */
-  .message{ background:var(--cream-2); text-align:center; }
-  .message-box{
-    max-width:680px; margin:0 auto; background:#fff; padding:44px 36px;
+  /* ---------- mini game ---------- */
+  .game-section{ background:var(--cream-2); text-align:center; }
+  .game-wrap{
+    max-width:460px; margin:0 auto; background:#fff; padding:26px;
     border-radius:var(--radius-fun); box-shadow:0 14px 30px rgba(42,35,31,.12);
-    position:relative; transform:rotate(-1deg);
   }
-  .message-box::before{
-    content:"💌"; position:absolute; top:-26px; left:50%; transform:translateX(-50%);
-    font-size:2.4rem; background:var(--cream-2); width:56px; height:56px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
+  .game-wrap p.game-blurb{ font-size:1rem; color:#5c4c40; margin-bottom:18px; line-height:1.6; }
+  #snakeCanvas{
+    background:var(--teal-dark); border-radius:16px; border:5px solid var(--marigold);
+    max-width:100%; touch-action:none; display:block; margin:0 auto;
+    box-shadow:0 10px 22px rgba(10,65,61,.35);
   }
-  .message-box p{ font-size:1.1rem; line-height:1.85; color:#4a3c34; margin-bottom:16px; }
-  .message-sign{ font-family:'Fraunces', serif; font-style:italic; color:var(--teal-dark); font-size:1.2rem; margin-top:10px; }
+  .game-hud{
+    display:flex; justify-content:center; gap:26px; margin-top:16px;
+    font-weight:800; color:var(--teal-dark); font-size:1.05rem;
+  }
+  .game-hud span{color:var(--maroon);}
+  .game-controls-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; margin-top:18px; flex-wrap:wrap;
+  }
+  .game-btn{
+    background:var(--marigold); color:var(--teal-dark); border:none;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:1rem;
+    padding:12px 28px; border-radius:50px; cursor:pointer;
+    box-shadow:0 6px 0 var(--gold);
+    transition:transform .12s ease;
+    flex-shrink:0;
+  }
+  .game-btn:hover{ transform:translateY(-2px); }
+  .game-btn:active{ transform:translateY(3px); box-shadow:0 2px 0 var(--gold); }
+  .game-overlay-msg{
+    margin-top:14px; font-family:'Fraunces', serif; font-style:italic; color:var(--maroon); min-height:1.4em;
+  }
+  .game-dpad{
+    display:grid; grid-template-columns:44px 44px 44px; grid-template-rows:44px 44px 44px;
+    gap:5px; flex-shrink:0;
+  }
+  .game-dpad button{
+    background:var(--teal); color:var(--cream); border:none; border-radius:10px;
+    font-size:1rem; cursor:pointer; box-shadow:0 4px 0 var(--teal-dark);
+  }
+  .game-dpad button:active{ transform:translateY(2px); box-shadow:0 2px 0 var(--teal-dark); }
+  .gd-up{grid-column:2; grid-row:1;}
+  .gd-left{grid-column:1; grid-row:2;}
+  .gd-down{grid-column:2; grid-row:2;}
+  .gd-right{grid-column:3; grid-row:2;}
 
   /* ---------- childhood photo strip in footer ---------- */
   .childhood-strip{
@@ -437,116 +470,116 @@
     </div>
     <div class="gallery-grid">
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_2.jpg" alt="Photo 1"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_2.jpg" alt="Photo 1" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/kavachakaal.jpg" alt="Photo 3"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
+        <div class="photo-frame"><img src="photos/kavachakaal.jpg" alt="Photo 3" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
         <div class="photo-caption">    </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_4_2026-09-05_13-40-21.jpg" alt="Photo 4"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_4_2026-09-05_13-40-21.jpg" alt="Photo 4" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 gallery-5.jpg</div></div>
         <!-- <div class="photo-frame"><img src="photos/gallery-5.jpg" alt="Photo 5"><div class="photo-placeholder">📷 gallery-5.jpg</div></div> -->
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_5_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_5_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/junu_samathi.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/junu_samathi.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">    </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_7_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_7_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">    </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_8_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_8_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">    </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_9_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_9_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_10_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_10_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_11_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_11_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_12_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_12_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_13_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_13_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_14_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_14_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_15_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_15_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_16_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_16_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_17_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_17_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_18_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_18_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/meenmuri.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/meenmuri.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_20_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_20_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_21_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_21_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_22_2026-09-05_13-40-21.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_22_2026-09-05_13-40-21.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_1_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_1_2026-09-05_13-56-09.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_1.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_1.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_5_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_5_2026-09-05_13-56-09.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_4_2026-09-05_13-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_2_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_2_2026-09-05_13-56-09.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_3_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_3_2026-09-05_13-56-09.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_4_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_4_2026-09-05_13-56-09.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
       <div class="gallery-item">
-        <div class="photo-frame"><img src="photos/photo_6_2026-09-05_13-56-09.jpg" alt="Photo 5"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
+        <div class="photo-frame"><img src="photos/photo_6_2026-09-05_13-56-09.jpg" alt="Photo 5" loading="eager" decoding="sync" fetchpriority="high"><div class="photo-placeholder">📷 photo_1_2026-09-05_13-56-093-40-21.jpg</div></div>
         <div class="photo-caption">   </div>
       </div>
     </div>
@@ -563,7 +596,7 @@
     <div class="video-gallery-grid">
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/video_2026-09-05_16-36-16 (2).mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="videos/video_2026-09-05_16-36-16 (2).mp4" autoplay muted loop playsinline preload="auto"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_1.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -571,7 +604,7 @@
       </div>
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/video_2026-09-05_16-36-16.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="videos/video_2026-09-05_16-36-16.mp4" autoplay muted loop playsinline preload="auto"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_2.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -579,7 +612,7 @@
       </div>
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/IMG_6646.MOV" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="videos/IMG_6646.MOV" autoplay muted loop playsinline preload="auto"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_3.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -587,7 +620,7 @@
       </div>
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/IMG_6739.MOV" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="videos/IMG_6739.MOV" autoplay muted loop playsinline preload="auto"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_4.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -608,7 +641,7 @@
 
       <div class="tile groom" id="groomTile">
         <div class="tile-photo">
-            <div class="photo-frame"><img src="photos/groom.jpg"alt="Junu"><div class="photo-placeholder">📷 Replace with<br>groom.jpg</div></div>
+            <div class="photo-frame"><img src="photos/groom.jpg"alt="Junu" loading="eager" decoding="sync"><div class="photo-placeholder">📷 Replace with<br>groom.jpg</div></div>
         </div>
         <div class="tile-body">
           <span class="tile-role">The Groom</span>
@@ -626,14 +659,14 @@
 
       <div class="tile bride" id="brideTile">
         <div class="tile-photo">
-          <div class="photo-frame"><img src="photos/bride.jpg" alt="Ayesha"><div class="photo-placeholder">📷 Replace with<br>bride.jpg</div></div>
+          <div class="photo-frame"><img src="photos/bride.jpg" alt="Ayesha" loading="eager" decoding="sync"><div class="photo-placeholder">📷 Replace with<br>bride.jpg</div></div>
         </div>
         <div class="tile-body">
           <span class="tile-role">The Bride</span>
           <div class="tile-name">Rasni</div>
           <div class="tile-nick">"തവള സിനി"</div>
           <div class="tile-facts">
-            <div class="fact"><span class="fact-emoji">🎂</span> 23 · from kadavallur</div>
+            <div class="fact"><span class="fact-emoji">🎂</span> 22 · from kadavallur</div>
             <div class="fact"><span class="fact-emoji">💼</span> പഠിച്ചോണ്ടിരിക്യാ </div>
             <div class="fact"><span class="fact-emoji">📚</span> Known for "തീറ്റ" 😂😂</div>
           </div>
@@ -652,13 +685,6 @@
       <h2 class="section-title">The <em>celebrations</em></h2>
     </div>
     <div class="event-path">
-      <!-- <div class="event-card">
-        <div class="event-icon">🌿</div>
-        <div class="event-info">
-          <h3>Mehndi Night</h3>
-          <p class="event-meta"><b>Thu, 10th Sept 2026</b> · 6:00 PM onwards<br>[Venue placeholder] — The Garden Courtyard, Kochi</p>
-        </div>
-      </div> -->
       <div class="event-card">
         <div class="event-icon">💍</div>
         <div class="event-info">
@@ -691,18 +717,29 @@
   </div>
 </section>
 
-<!-- ============ MESSAGE FROM FRIENDS ============ -->
-<section class="message">
+<!-- ============ MINI GAME: JUNU CHASES SINI ============ -->
+<section class="game-section">
   <div class="section-inner reveal">
     <div class="section-head">
-      <div class="section-tag">From The Groom's Side</div>
-      <h2 class="section-title">A little <em>note</em></h2>
+      <div class="section-tag">One Last Thing</div>
+      <h2 class="section-title">Help Junu <em>catch</em> Sini 🐴</h2>
     </div>
-    <div class="message-box">
-      <p>[Placeholder] Zayd, we've watched you complain about being single, then watched you fall head over heels, and now — somehow — we're watching you get married. Time flies when you're busy roasting each other in the group chat.</p>
-      <p>[Placeholder] Ayesha, thank you for putting up with all of Zayd's terrible jokes (we've heard them too, we understand your sacrifice). Welcome to the group — fair warning, there's no leaving it now.</p>
-      <p>[Placeholder] We built this little page because our guy deserves more than just a card — he deserves a whole website full of his favourite people cheering him on. Congratulations, you two. We love you endlessly.</p>
-      <div class="message-sign">— the boys, who made this instead of getting you a normal gift</div>
+    <div class="game-wrap">
+      <p class="game-blurb">He's been chasing her for years — now it's your turn. Guide Junu around the board to snap up as many Sinis as you can before he trips over his own tail!</p>
+      <canvas id="snakeCanvas" width="380" height="380"></canvas>
+      <div class="game-hud">
+        <div>Score: <span id="gameScore">0</span></div>
+      </div>
+      <div class="game-controls-row">
+        <button class="game-btn" id="gameStartBtn">▶️ Start Game</button>
+        <div class="game-dpad" id="gameDpad">
+          <button class="gd-up" data-dir="up">⬆️</button>
+          <button class="gd-left" data-dir="left">⬅️</button>
+          <button class="gd-down" data-dir="down">⬇️</button>
+          <button class="gd-right" data-dir="right">➡️</button>
+        </div>
+      </div>
+      <div class="game-overlay-msg" id="gameMsg"></div>
     </div>
   </div>
 </section>
@@ -713,7 +750,7 @@
     <div class="childhood-strip-title">📸 A Little Throwback To The Good Old Days</div>
     <div class="childhood-photos single">
       <div class="childhood-photo">
-        <img src="photos/thoppi_photo.jpg" alt="Childhood memory">
+        <img src="photos/thoppi_photo.jpg" alt="Childhood memory" loading="eager" decoding="sync">
       </div>
     </div>
   </div>
@@ -798,6 +835,27 @@
   window.addEventListener('DOMContentLoaded', tryAutoplayMusic);
   window.addEventListener('load', tryAutoplayMusic);
 
+  /* ================= PRELOAD PHOTOS (fixes photos not painting during fast auto-scroll) =================
+     Fast programmatic scrolling can carry the viewport past an <img> before the browser has
+     finished fetching/decoding it, so it never gets painted. We force every gallery photo to be
+     fetched and decoded up front, before auto-scroll is allowed to start. */
+  const galleryImgs = Array.from(document.querySelectorAll('.gallery-grid img, .couple-tiles img, .childhood-photo img'));
+  let imagesPreloaded = false;
+  function preloadImages(){
+    return Promise.all(galleryImgs.map(img => {
+      if(img.complete){
+        return img.decode ? img.decode().catch(()=>{}) : Promise.resolve();
+      }
+      return new Promise(resolve => {
+        img.addEventListener('load', () => {
+          (img.decode ? img.decode().catch(()=>{}) : Promise.resolve()).then(resolve);
+        }, { once:true });
+        img.addEventListener('error', resolve, { once:true });
+      });
+    })).then(() => { imagesPreloaded = true; });
+  }
+  const preloadPromise = preloadImages();
+
   /* ================= AUTO-SCROLL ================= */
   const scrollBtn = document.getElementById('scrollBtn');
   let autoScrolling = false;
@@ -827,15 +885,19 @@
   window.addEventListener('wheel', () => { if(autoScrolling) stopAutoScroll(); });
   window.addEventListener('touchmove', () => { if(autoScrolling) stopAutoScroll(); });
 
-  /* ---- auto-start the auto-scroll a moment after the page loads ---- */
+  /* ---- auto-start the auto-scroll a moment after the page loads, but only once photos are ready ---- */
   const AUTO_SCROLL_START_DELAY = 1200; // ms to wait after load before scrolling begins
   window.addEventListener('load', () => {
     setTimeout(() => {
       if(autoScrolling) return; // don't double-start if user already toggled it
-      autoScrolling = true;
-      scrollBtn.textContent = '⏸️';
-      scrollBtn.classList.add('active');
-      startAutoScroll();
+      const begin = () => {
+        autoScrolling = true;
+        scrollBtn.textContent = '⏸️';
+        scrollBtn.classList.add('active');
+        startAutoScroll();
+      };
+      if(imagesPreloaded){ begin(); }
+      else { preloadPromise.then(begin); }
     }, AUTO_SCROLL_START_DELAY);
   });
 
@@ -987,6 +1049,183 @@
     });
   }, { threshold: 0.4 });
   cIo.observe(countdownSection);
+
+  /* ================= MINI GAME: JUNU CHASES SINI (snake) ================= */
+  (function(){
+    const cvs = document.getElementById('snakeCanvas');
+    const gctx = cvs.getContext('2d');
+    const GRID = 19;
+    const CELL = cvs.width / GRID;
+    const scoreEl = document.getElementById('gameScore');
+    const msgEl = document.getElementById('gameMsg');
+    const startBtn = document.getElementById('gameStartBtn');
+    const dpad = document.getElementById('gameDpad');
+
+    const groomImg = new Image();
+    groomImg.src = 'photos/groom_head.jpg';
+    const brideImg = new Image();
+    brideImg.src = 'photos/bride_head.jpg';
+
+    let snake, dir, nextDir, food, score, loopId, running;
+
+    function resetGame(){
+      snake = [
+        {x:9,y:9},{x:8,y:9},{x:7,y:9}
+      ];
+      dir = {x:1,y:0};
+      nextDir = {x:1,y:0};
+      score = 0;
+      scoreEl.textContent = score;
+      placeFood();
+      msgEl.textContent = '';
+    }
+
+    function placeFood(){
+      let pos;
+      do{
+        pos = { x: Math.floor(Math.random()*GRID), y: Math.floor(Math.random()*GRID) };
+      } while(snake.some(s => s.x === pos.x && s.y === pos.y));
+      food = pos;
+    }
+
+    function drawCircleImage(img, cx, cy, r){
+      gctx.save();
+      gctx.beginPath();
+      gctx.arc(cx, cy, r, 0, Math.PI*2);
+      gctx.closePath();
+      gctx.clip();
+      if(img.complete && img.naturalWidth){
+        gctx.drawImage(img, cx-r, cy-r, r*2, r*2);
+      } else {
+        gctx.fillStyle = '#F2A73B';
+        gctx.fillRect(cx-r, cy-r, r*2, r*2);
+      }
+      gctx.restore();
+    }
+
+    function draw(){
+      gctx.clearRect(0,0,cvs.width,cvs.height);
+      // board bg grid dots
+      gctx.fillStyle = 'rgba(255,246,232,0.06)';
+      for(let x=0;x<GRID;x++){
+        for(let y=0;y<GRID;y++){
+          gctx.beginPath();
+          gctx.arc(x*CELL+CELL/2, y*CELL+CELL/2, 1.5, 0, Math.PI*2);
+          gctx.fill();
+        }
+      }
+      // food (Sini)
+      drawCircleImage(brideImg, food.x*CELL+CELL/2, food.y*CELL+CELL/2, CELL/2 - 2);
+      // snake body
+      for(let i=1;i<snake.length;i++){
+        const s = snake[i];
+        gctx.fillStyle = '#3EA6C9';
+        gctx.beginPath();
+        gctx.arc(s.x*CELL+CELL/2, s.y*CELL+CELL/2, CELL/2 - 4, 0, Math.PI*2);
+        gctx.fill();
+      }
+      // snake head (Junu)
+      const h = snake[0];
+      drawCircleImage(groomImg, h.x*CELL+CELL/2, h.y*CELL+CELL/2, CELL/2 - 1);
+    }
+
+    function step(){
+      dir = nextDir;
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+      // wrap around edges so the game stays forgiving/fun
+      if(head.x < 0) head.x = GRID-1;
+      if(head.x >= GRID) head.x = 0;
+      if(head.y < 0) head.y = GRID-1;
+      if(head.y >= GRID) head.y = 0;
+
+      if(snake.some(s => s.x === head.x && s.y === head.y)){
+        gameOver();
+        return;
+      }
+
+      snake.unshift(head);
+      if(head.x === food.x && head.y === food.y){
+        score++;
+        scoreEl.textContent = score;
+        placeFood();
+      } else {
+        snake.pop();
+      }
+      draw();
+    }
+
+    function gameOver(){
+      running = false;
+      clearInterval(loopId);
+      msgEl.textContent = "Junu tripped over himself 😂 he caught " + score + " Sini" + (score===1?'':'s') + "! Tap Start to try again.";
+      startBtn.textContent = '🔁 Play Again';
+    }
+
+    function startGame(){
+      resetGame();
+      running = true;
+      startBtn.textContent = '⏸️ Restart';
+      clearInterval(loopId);
+      loopId = setInterval(step, 160);
+      draw();
+    }
+
+    startBtn.addEventListener('click', startGame);
+
+    function setDir(nx, ny){
+      // prevent reversing directly into itself
+      if(snake.length > 1 && nx === -dir.x && ny === -dir.y) return;
+      nextDir = { x: nx, y: ny };
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if(!running) return;
+      switch(e.key){
+        case 'ArrowUp': case 'w': case 'W': setDir(0,-1); e.preventDefault(); break;
+        case 'ArrowDown': case 's': case 'S': setDir(0,1); e.preventDefault(); break;
+        case 'ArrowLeft': case 'a': case 'A': setDir(-1,0); e.preventDefault(); break;
+        case 'ArrowRight': case 'd': case 'D': setDir(1,0); e.preventDefault(); break;
+      }
+    });
+
+    dpad.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-dir]');
+      if(!btn || !running) return;
+      const map = { up:[0,-1], down:[0,1], left:[-1,0], right:[1,0] };
+      const [nx, ny] = map[btn.dataset.dir];
+      setDir(nx, ny);
+    });
+
+    // swipe controls on the canvas itself
+    let touchStart = null;
+    cvs.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      touchStart = { x: t.clientX, y: t.clientY };
+    }, { passive:true });
+    cvs.addEventListener('touchend', (e) => {
+      if(!touchStart || !running) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStart.x;
+      const dy = t.clientY - touchStart.y;
+      if(Math.abs(dx) > Math.abs(dy)){
+        setDir(dx > 0 ? 1 : -1, 0);
+      } else {
+        setDir(0, dy > 0 ? 1 : -1);
+      }
+      touchStart = null;
+    }, { passive:true });
+
+    // draw an idle preview before the player hits start
+    snake = [{x:9,y:9},{x:8,y:9},{x:7,y:9}];
+    dir = {x:1,y:0};
+    food = {x:14,y:5};
+    Promise.all([
+      new Promise(r => groomImg.complete ? r() : groomImg.addEventListener('load', r, {once:true})),
+      new Promise(r => brideImg.complete ? r() : brideImg.addEventListener('load', r, {once:true}))
+    ]).then(draw).catch(draw);
+    draw();
+  })();
 </script>
 
 </body>
