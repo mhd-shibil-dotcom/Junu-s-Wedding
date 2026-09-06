@@ -320,8 +320,8 @@
   }
   .game-hud span{color:var(--maroon);}
   .game-controls-row{
-    display:flex; align-items:center; justify-content:space-between;
-    gap:14px; margin-top:18px; flex-wrap:wrap;
+    display:flex; align-items:center; justify-content:center;
+    gap:36px; margin-top:18px; flex-wrap:wrap;
   }
   .game-btn{
     background:var(--marigold); color:var(--teal-dark); border:none;
@@ -666,7 +666,7 @@
           <div class="tile-name">Rasni</div>
           <div class="tile-nick">"തവള സിനി"</div>
           <div class="tile-facts">
-            <div class="fact"><span class="fact-emoji">🎂</span> 22 · from kadavallur</div>
+            <div class="fact"><span class="fact-emoji">🎂</span> 23 · from kadavallur</div>
             <div class="fact"><span class="fact-emoji">💼</span> പഠിച്ചോണ്ടിരിക്യാ </div>
             <div class="fact"><span class="fact-emoji">📚</span> Known for "തീറ്റ" 😂😂</div>
           </div>
@@ -1115,7 +1115,7 @@
         }
       }
       // food (Sini)
-      drawCircleImage(brideImg, food.x*CELL+CELL/2, food.y*CELL+CELL/2, CELL/2 - 2);
+      drawCircleImage(brideImg, food.x*CELL+CELL/2, food.y*CELL+CELL/2, CELL*0.95);
       // snake body
       for(let i=1;i<snake.length;i++){
         const s = snake[i];
@@ -1126,7 +1126,7 @@
       }
       // snake head (Junu)
       const h = snake[0];
-      drawCircleImage(groomImg, h.x*CELL+CELL/2, h.y*CELL+CELL/2, CELL/2 - 1);
+      drawCircleImage(groomImg, h.x*CELL+CELL/2, h.y*CELL+CELL/2, CELL*1.15);
     }
 
     function step(){
