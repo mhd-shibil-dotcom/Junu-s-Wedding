@@ -597,7 +597,7 @@
     <div class="video-gallery-grid">
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/video_2026-09-05_16-36-16 (2).mp4" autoplay muted loop playsinline preload="auto"></video>
+          <video src="videos/video_2026-09-05_16-36-16 (2).mp4" muted loop playsinline webkit-playsinline preload="none"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_1.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -605,7 +605,7 @@
       </div>
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/video_2026-09-05_16-36-16.mp4" autoplay muted loop playsinline preload="auto"></video>
+          <video src="videos/video_2026-09-05_16-36-16.mp4" muted loop playsinline webkit-playsinline preload="none"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_2.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -613,7 +613,7 @@
       </div>
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/IMG_6646.MOV" autoplay muted loop playsinline preload="auto"></video>
+          <video src="videos/IMG_6646.MOV" muted loop playsinline webkit-playsinline preload="none"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_3.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -621,7 +621,7 @@
       </div>
       <div class="video-item">
         <div class="photo-frame">
-          <video src="videos/IMG_6739.MOV" autoplay muted loop playsinline preload="auto"></video>
+          <video src="videos/IMG_6739.MOV" muted loop playsinline webkit-playsinline preload="none"></video>
           <div class="photo-placeholder">🎬 videos/junu_playing_4.mp4</div>
         </div>
         <span class="gif-badge">GIF</span>
@@ -970,19 +970,46 @@
     });
   });
 
-  /* ================= VIDEO-AS-GIF FALLBACK HANDLING ================= */
-  document.querySelectorAll('.video-item video').forEach(video => {
+  /* ================= VIDEO-AS-GIF: LAZY LOAD + VIEWPORT-ONLY PLAYBACK =================
+     Playing all 4 videos at once (as before) makes the browser decode/buffer them
+     simultaneously, which is what causes stutter/freezing — especially with large,
+     uncompressed .MOV files. Instead, only the video(s) actually visible on screen
+     load and play; everything else stays paused and unloaded until it's needed. */
+  const galleryVideos = Array.from(document.querySelectorAll('.video-item video'));
+
+  galleryVideos.forEach(video => {
     // If the video source fails to load (placeholder path), show the placeholder text instead.
     video.addEventListener('error', () => {
       video.style.display = 'none';
       const placeholder = video.parentElement.querySelector('.photo-placeholder');
       if(placeholder) placeholder.style.display = 'flex';
     });
-    // Some mobile browsers pause background video; nudge it to keep playing like a gif.
-    video.addEventListener('pause', () => {
-      video.play().catch(() => {});
-    });
   });
+
+  let videosLoaded = new Set();
+  function loadVideo(video){
+    if(videosLoaded.has(video)) return;
+    videosLoaded.add(video);
+    video.preload = 'auto';
+    video.load();
+  }
+
+  const videoIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if(entry.isIntersecting){
+        loadVideo(video);
+        // play() can reject before the video has enough data yet; retry once metadata is ready.
+        const tryPlay = () => video.play().catch(() => {});
+        if(video.readyState >= 2){ tryPlay(); }
+        else { video.addEventListener('loadeddata', tryPlay, { once:true }); }
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.35 });
+
+  galleryVideos.forEach(video => videoIo.observe(video));
 
   /* ================= CONFETTI CANVAS ENGINE ================= */
   const canvas = document.getElementById('confettiCanvas');
